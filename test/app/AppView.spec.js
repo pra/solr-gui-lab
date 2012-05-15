@@ -1,22 +1,21 @@
-describe("TodoListView", function() {
-  
-  beforeEach(function() {
-    this.view = new TodoListView();
-  });
-  
-  describe("Instantiation", function() {
+describe("SearchResultsView", function() {
     
-    it("should create a list element", function() {
-      expect(this.view.el.nodeName).toEqual("UL");
+    beforeEach(function() {
+	this.view = SolrApp.appView;
     });
     
-    it("should have a class of 'todos'", function() {
-      expect($(this.view.el)).toHaveClass('todos');
+    afterEach(function() {
+	$('#search-result-table').remove();	
     });
     
-  });
-  
-  describe("Rendering", function() {
+    describe("Instantiation", function() {
+	
+	it("should find a table in the dom", function() {
+	    expect(this.view.el.nodeName).toEqual("TABLE");
+	});	
+    });
+  /*
+    describe("Rendering", function() {
     
     beforeEach(function() {
       this.todoView = new Backbone.View();
@@ -58,5 +57,5 @@ describe("TodoListView", function() {
     });
     
   });
-  
+  */
 });

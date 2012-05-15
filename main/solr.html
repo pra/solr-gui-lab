@@ -99,6 +99,15 @@
 	    <td><%= name %></td>
 	    <td><%= count %></td>
     </script>
-    
+
+	    <script type="text/javascript">
+	    $(function() {
+	    solrApp = SolrApp({
+	                       row_template: $("#row-template"),
+	                       search_result_table: $("#search-results-table"),
+	                       search_results: $("#search-results")
+	                      });
+	    });
+	    </script>
   </body>
 </html>

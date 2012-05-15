@@ -1,5 +1,18 @@
 // Jquery load
-$(function() {
+SolrApp = function(renderViewConf) {
+    var root = this;
+
+    var SolrApp = root.SolrApp = {};
+
+
+    var defaultRenderViewConf = {
+	row_template: $("<td></td>"),
+	search_result_table: $("<table></table>"),
+	search_results: $("<tbody></tbody>")
+    };
+
+    var renderViews = _.extend(defaultRenderViewConf, renderViewConf || {});
+
     var TestResult = Backbone.Model.extend({
 	// Default attributes for the todo item.
 	defaults: function() {
@@ -16,9 +29,10 @@ $(function() {
 
     var testResults = new TestResultList;
     
+    var html = $(renderViews.row_template).html();
     var TestResultView = Backbone.View.extend({
-	template: _.template($('#row-template').html()),
-	tagName: "tr",
+	template: _.template($(renderViews.row_template).html()),
+	tagName: "tr", //this NEEDS to
 
 	render: function() {
 	    // This is weird, why cant I have all HTML in the template?
@@ -28,11 +42,11 @@ $(function() {
     });
     
     var AppView = Backbone.View.extend({
-	el: $("#search-result-table"),
+	el: renderViews.search_result_table,
 	
 	addOne: function(testResult) {
 	    var view = new TestResultView({model: testResult});
-	    this.$("#search-results").append(view.render().el);
+	    renderViews.search_results.append(view.render().el);
 	},
 	
 	// Add all items in the **Todos** collection at once.
@@ -41,12 +55,19 @@ $(function() {
 	}
     });
     
-    var App = new AppView;
+    var app = new AppView;
+
+    //Export
+    SolrApp.appView = app; 
+
     // Mock
     testResults.add([
 	{name:"Test Name", count: 0},
 	{name:"Test Name2", count: 2}
     ]);
-    App.addAll();
+    app.addAll();
+
     
-});
+    return SolrApp;
+};
+//.call(this);

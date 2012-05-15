@@ -4,36 +4,33 @@
 <head>
   <title>Jasmine Spec Runner</title>
 <!-- App libs -->
-  <script type="text/javascript" src="../../../main/webapp/js/jquery-1.6.3.min.js"></script>
-  <script type="text/javascript"
-  src="../../../main/webapp/js/underscore-min.js"></script>
-  <script type="text/javascript" src="../../../main/webapp/js/backbone-min.js"></script>
+  <script type="text/javascript" src="../main/lib/jquery-1.7.2.js"></script>
+  <script type="text/javascript" src="../main/lib/underscore.js"></script>
+  <script type="text/javascript" src="../main/lib/backbone.js"></script>
 
 
 
 <!-- Test libs -->
-  <link rel="shortcut icon" type="image/png" href="lib/jasmine-1.2.0.rc3/jasmine_favicon.png">
-  <link rel="stylesheet" type="text/css"
-  href="lib/jasmine-1.2.0.rc3/jasmine.css">
+ <!-- <link rel="shortcut icon" type="image/png" href="lib/jasmine-1.2.0.rc3/jasmine_favicon.png">-->
+  <link rel="stylesheet" type="text/css" href="lib/jasmine-1.2.0.rc3/jasmine.css">
   <script type="text/javascript" src="lib/jasmine-1.2.0.rc3/jasmine.js"></script>
   <script type="text/javascript" src="lib/jasmine-1.2.0.rc3/jasmine-html.js"></script>
   <script type="text/javascript" src="lib/sinon-1.0.0.js"></script>
   <script type="text/javascript" src="lib/jasmine-sinon.js"></script>
   <script type="text/javascript" src="lib/jasmine-jquery.js"></script>
 
+  <script type="text/javascript" src="../main/app/SolrApp.js"></script>
 
   <!-- include source files here... -->
-  <script type="text/javascript" src="spec/TableView.spec.js"></script>
+  <script type="text/javascript" src="app/AppView.spec.js"></script>
 
-  <script type="text/javascript" src="../../../main/webapp/js/TodoListView.js"></script>
-  <script type="text/javascript" src="../../../main/webapp/js/TodoView.js"></script>
 
 
   <!-- include spec files here... 
   <script type="text/javascript" src="src/Player.js"></script>
 -->
   <script type="text/javascript">
-    (function() {
+    $(function() {
       var jasmineEnv = jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;
 
@@ -51,6 +48,7 @@
         if (currentWindowOnload) {
           currentWindowOnload();
         }
+        solrApp = SolrApp();
         execJasmine();
       };
 
@@ -58,7 +56,7 @@
         jasmineEnv.execute();
       }
 
-    })();
+    });
   </script>
 
 </head>
