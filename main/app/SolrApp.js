@@ -1,16 +1,13 @@
 // Jquery load
 SolrApp = function(renderViewConf) {
-    var root = this;
+    var SolrApp = {};
 
-    var SolrApp = root.SolrApp = {};
-
-
-    var defaultRenderViewConf = {
+    var defaultRenderViewConf = {   
 	row_template: $("<td></td>"),
-	search_result_table: $("<table></table>"),
-	search_results: $("<tbody></tbody>")
+	search_result_table: $("<table><tbody></tbody></table>")
     };
-
+    defaultRenderViewConf.search_results = $(defaultRenderViewConf.search_result_table).find("tbody")
+    
     var renderViews = _.extend(defaultRenderViewConf, renderViewConf || {});
 
     var TestResult = Backbone.Model.extend({
@@ -26,10 +23,7 @@ SolrApp = function(renderViewConf) {
     var TestResultList = Backbone.Collection.extend({
 	model: TestResult,
     });
-
-    var testResults = new TestResultList;
     
-    var html = $(renderViews.row_template).html();
     var TestResultView = Backbone.View.extend({
 	template: _.template($(renderViews.row_template).html()),
 	tagName: "tr", //this NEEDS to
@@ -49,24 +43,25 @@ SolrApp = function(renderViewConf) {
 	    renderViews.search_results.append(view.render().el);
 	},
 	
-	// Add all items in the **Todos** collection at once.
-	addAll: function() {
+	addAll: function(testResults) {
 	    testResults.each(this.addOne);
 	}
     });
+
     
+    var testResults = new TestResultList;
     var app = new AppView;
+    testResults.bind("add", app.addAll, app);
+    testResults.bind("reset", app.addAll, app);
 
     //Export
-    SolrApp.appView = app; 
-
-    // Mock
-    testResults.add([
-	{name:"Test Name", count: 0},
-	{name:"Test Name2", count: 2}
-    ]);
-    app.addAll();
-
+    SolrApp.appView = app;
+    // UGGGLY
+    SolrApp.TestResultView = TestResultView; 
+    SolrApp.init = function(newTestResults) {
+	testResults.reset(newTestResults);
+    }
+    //SolrApp.
     
     return SolrApp;
 };

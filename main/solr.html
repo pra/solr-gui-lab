@@ -102,11 +102,16 @@
 
 	    <script type="text/javascript">
 	    $(function() {
-	    solrApp = SolrApp({
+	        solrApp = SolrApp({
 	                       row_template: $("#row-template"),
 	                       search_result_table: $("#search-results-table"),
 	                       search_results: $("#search-results")
 	                      });
+	       // Mock
+               solrApp.init([
+	                   {name:"Test Name", count: 0},
+	                   {name:"Test Name2", count: 2}
+                              ]);
 	    });
 	    </script>
   </body>
